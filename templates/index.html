@@ -1,46 +1,82 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <title>Diagnosa Penyakit - Sistem Pakar CF</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-    <style>
-        body {
-            background: linear-gradient(to right, #74ebd5, #acb6e5);
-        }
-        .card {
-            border-radius: 20px;
-            box-shadow: 0px 0px 20px rgba(0,0,0,0.1);
-        }
-        h2 {
-            font-weight: bold;
-            color: #333;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Diagnosa Penyakit - CF</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+  <style>
+    body {
+      background: linear-gradient(to right, #74ebd5, #acb6e5);
+    }
+    .card {
+      border-radius: 20px;
+      box-shadow: 0px 0px 20px rgba(0,0,0,0.1);
+    }
+    h2 {
+      font-weight: bold;
+      color: #333;
+    }
+    .gejala-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .gejala-item {
+      background-color: #f5fdf2;
+      border-left: 5px solid #37c453;
+      padding: 12px 15px;
+      border-radius: 10px;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: background 0.3s ease;
+      cursor: pointer;
+    }
+    .gejala-item:hover {
+      background-color: #e4f9e0;
+    }
+    .gejala-item input[type="checkbox"] {
+      transform: scale(1.2);
+    }
+    .btn-diagnosa {
+      background-color: #22c1f7;
+      color: white;
+      font-weight: bold;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 12px;
+      padding: 10px 30px;
+      transition: background-color 0.3s ease;
+    }
+    .btn-diagnosa:hover {
+      background-color: #1991d3;
+    }
+  </style>
 </head>
 <body>
-    <div class="container mt-5">
-        <div class="card p-4">
-            <h2 class="text-center mb-4">🩺 Sistem Pakar Diagnosa Penyakit</h2>
-            <form action="/diagnosa" method="POST">
-                <div class="mb-3">
-                    <h5 class="text-primary">✅ Pilih Gejala yang Anda Alami:</h5>
-                    <div class="row">
-                        {% for g in gejala %}
-                        <div class="col-md-6">
-                            <div class="form-check mb-2">
-                                <input class="form-check-input" type="checkbox" name="gejala" value="{{ g }}" id="g{{ loop.index }}">
-                                <label class="form-check-label" for="g{{ loop.index }}">{{ g }}</label>
-                            </div>
-                        </div>
-                        {% endfor %}
-                    </div>
-                </div>
-                <div class="text-center">
-                    <button type="submit" class="btn btn-success px-5">🔍 Diagnosa Sekarang</button>
-                </div>
-            </form>
+  <div class="container mt-5">
+    <div class="card p-4 shadow-lg">
+      <h2 class="text-center text-primary fw-bold mb-2">🩺 CF Diagnosa Penyakit</h2>
+      <p class="text-center text-muted mb-4">Pilih gejala yang Anda alami untuk mendapatkan hasil diagnosa</p>
+      <form action="/diagnosa" method="POST">
+        <div class="mb-3">
+          <div class="gejala-list">
+            {% for g in gejala %}
+            <label class="gejala-item">
+              <input type="checkbox" name="gejala" value="{{ g }}"> {{ g }}
+            </label>
+            {% endfor %}
+          </div>
         </div>
+        <div class="text-center mt-4">
+          <button type="submit" class="btn-diagnosa">
+            🔍 Diagnosa
+          </button>
+        </div>
+      </form>
     </div>
+  </div>
 </body>
 </html>
